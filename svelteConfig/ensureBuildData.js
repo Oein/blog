@@ -91,6 +91,6 @@ export default async function ensure() {
   await crawlPages();
 
   return {
-    paths: [searchData.map((x) => "/" + x[0])],
+    paths: [...searchData.map((x) => "/" + x[0])],
   };
 }
