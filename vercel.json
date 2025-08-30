@@ -3,7 +3,7 @@
   "installCommand": "bun install && bun run svelteConfig/vercel.js",
   "buildCommand": "VERCEL=true vite build",
   "functions": {
-    "src/routes/api/posts/[idx]/+server.ts": {
+    "**/+server.ts": {
       "includeFiles": "static/build/**"
     }
   }
