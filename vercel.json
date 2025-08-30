@@ -1,5 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "bun install && bun run svelteConfig/vercel.js",
-  "buildCommand": "VERCEL=true vite build"
+  "buildCommand": "VERCEL=true vite build",
+  "functions": {
+    "api/**/*.ts": {
+      "includeFiles": "static/build/**"
+    }
+  }
 }
