@@ -24,6 +24,7 @@
 	},
 	"dependencies": {
 		"@sveltejs/adapter-static": "^3.0.9",
+		"@sveltejs/adapter-vercel": "^5.10.2",
 		"chalk": "^5.6.0",
 		"dotenv": "^17.2.1",
 		"es-hangul": "^2.3.5",
