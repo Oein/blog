@@ -1,110 +1,134 @@
 <script lang="ts">
-  import { onMount, afterUpdate } from "svelte";
+  import { onMount } from "svelte";
   import Post from "./components/Post.svelte";
   import SkeletonPost from "./components/SkeletonPost.svelte";
   import { config } from "./config";
+  import { disassemble } from "es-hangul";
+
+  import { decompress } from "lz4js";
 
   type TPost = {
     slug: string;
-    title: string;
+    title: [string, string];
     date?: string;
-    category?: string;
+    category?: [string, string];
   };
 
-  let posts: TPost[] = [];
-  let loading = false;
+  let loading = true;
   let initialLoading = true;
-  let currentPage = 1;
   let hasMore = true;
-  let sechkwd: string = "";
+
+  let allPosts: TPost[] = [];
+  let posts: TPost[] = [];
+  let filtered: TPost[] = [];
+  let sechkwd = "";
+
+  let currentPage = 1;
   let searchTimeout: NodeJS.Timeout;
   let scrollContainer: HTMLElement;
   let previousSearch = "";
 
-  // Fetch posts from API
-  async function fetchPosts(
-    page: number = 1,
-    search: string = "",
-    reset: boolean = false
-  ) {
-    if (loading) return;
+  const Base64 = {
+    _Rixits: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/",
+    toNumber: function (rixits_: string) {
+      var result = 0;
+      let rixits = rixits_.split("");
+      for (var e = 0; e < rixits.length; e++) {
+        result = result * 64 + this._Rixits.indexOf(rixits[e]);
+      }
+      return result;
+    },
+  };
 
+  const fetchPosts = async (page: number, reset: boolean = false) => {
     loading = true;
+    if (reset) posts = [];
 
-    try {
-      const searchParams = new URLSearchParams();
-      if (search) {
-        searchParams.set("search", search);
-      }
+    posts = [
+      ...posts,
+      ...filtered.slice(
+        (page - 1) * config.api.POSTS_PER_PAGE,
+        page * config.api.POSTS_PER_PAGE
+      ),
+    ];
 
-      const response = await fetch(
-        `/api/posts/${page}?${searchParams.toString()}`
-      );
-      const data = await response.json();
+    hasMore = filtered.length > page * config.api.POSTS_PER_PAGE;
 
-      if (reset) {
-        posts = [];
-      }
-
-      const chunkedPosts = [];
-      for (let i = 0; i < data.length - 1; i += 4) {
-        chunkedPosts.push(data.slice(i, i + 4));
-      }
-
-      // Transform the API response to match our TPost type
-      const newPosts = chunkedPosts.map((post: string[]) => ({
-        slug: post[0],
-        title: post[1],
-        category: post[2] || undefined,
-        date: post[3]
-          ? new Date(parseInt(post[3])).toLocaleDateString("ko-KR", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })
-          : undefined,
-      }));
-
-      posts = [...posts, ...newPosts];
-      hasMore = data[data.length - 1] || false;
-      currentPage = page;
-    } catch (error) {
-      console.error("Failed to fetch posts:", error);
-    } finally {
-      loading = false;
-      initialLoading = false;
-    }
-  }
-
-  // Handle search with debounce
-  function handleSearchInput() {
+    loading = false;
+  };
+  const handleSearchInput = () => {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(() => {
       if (sechkwd !== previousSearch) {
         previousSearch = sechkwd;
+        const diskwd = disassemble(sechkwd);
+        filtered = posts.filter((post) => {
+          return (
+            post.title[1].includes(diskwd) ||
+            (post.category || ["", ""])[1].includes(diskwd)
+          );
+        });
         currentPage = 1;
-        fetchPosts(1, sechkwd, true);
+        fetchPosts(1, true);
       }
-    }, 300);
-  }
+    }, 200);
+  };
+  const fetchAllPosts = async () => {
+    loading = true;
 
-  // Handle scroll for infinite loading
-  function handleScroll() {
+    const web = await fetch("/build/search.lz4");
+    const buf = await web.arrayBuffer();
+    const txt = [...decompress(new Uint8Array(buf))]
+      .map((c) => String.fromCharCode(c))
+      .join("");
+    const data = txt.split("\n").map((x) => decodeURIComponent(x));
+
+    for (let i = 0; i + 3 < data.length; i += 4) {
+      allPosts.push({
+        slug: data[i],
+        title: [data[i + 1], disassemble(data[i + 1])],
+        category:
+          data[i + 2] == ""
+            ? undefined
+            : [data[i + 2], disassemble(data[i + 2])],
+        date:
+          data[i + 3] == ""
+            ? undefined
+            : new Date(Base64.toNumber(data[i + 3])).toLocaleDateString(
+                "ko-KR",
+                {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                }
+              ),
+      });
+    }
+
+    hasMore = true;
+    loading = false;
+    initialLoading = false;
+  };
+  const handleScroll = () => {
     if (loading || !hasMore) return;
 
     const { scrollTop, scrollHeight, clientHeight } = scrollContainer;
     const threshold = 200; // Load more when 200px from bottom
 
     if (scrollTop + clientHeight >= scrollHeight - threshold) {
-      fetchPosts(currentPage + 1, sechkwd);
+      fetchPosts(currentPage + 1, false);
+      currentPage += 1;
     }
-  }
+  };
 
-  // Initialize
   onMount(() => {
-    fetchPosts();
+    if (initialLoading && typeof window != "undefined") {
+      fetchAllPosts().then(() => {
+        filtered = allPosts;
+        fetchPosts(1);
+      });
+    }
 
-    // Set up scroll container (window in this case)
     scrollContainer = document.documentElement;
     window.addEventListener("scroll", handleScroll);
 
@@ -113,11 +137,6 @@
       clearTimeout(searchTimeout);
     };
   });
-
-  // Watch search input
-  $: if (typeof sechkwd !== "undefined") {
-    handleSearchInput();
-  }
 </script>
 
 <svelte:head>
@@ -140,7 +159,14 @@
     <SkeletonPost />
   {:else}
     {#each posts as post (post.slug)}
-      <Post page={post} />
+      <Post
+        page={{
+          slug: post.slug,
+          title: post.title[0],
+          date: post.date,
+          category: post.category ? post.category[0] : undefined,
+        }}
+      />
     {/each}
 
     {#if posts.length === 0 && !loading}
