@@ -5,7 +5,7 @@ import { readFile } from "fs/promises";
 
 const load: import("./$types").PageServerLoad = async function ({ params }) {
   const slug = params.id;
-  const path = `.svelte-kit/output/server/content-${slug}.json`;
+  const path = `.svelte-kit/output/client/_app/content-${slug}.json`;
   if (!existsSync(path)) return error(404, "Not found");
   const data = JSON.parse(await readFile(path, "utf-8"));
   return {
