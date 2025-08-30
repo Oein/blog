@@ -4,7 +4,7 @@ import { createLogger } from "vite";
 import { join } from "path";
 
 import { disassemble } from "es-hangul";
-
+import { BUILD_DIR, CONTENTS_DIR } from "./dirConfig.js";
 import { parseNotedown } from "notedown-parser";
 
 const origLogger = createLogger("info", {
@@ -18,9 +18,6 @@ const logger = {
   error: (msg, options) =>
     origLogger.error(msg, { timestamp: true, ...options }),
 };
-
-const CONTENTS_DIR = "./contents";
-const BUILD_DIR = "./static";
 
 const pagesData = {};
 const searchData = [];

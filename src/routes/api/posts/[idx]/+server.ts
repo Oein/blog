@@ -6,6 +6,8 @@ import { config } from "../../../config";
 import { existsSync } from "fs";
 import { disassemble } from "es-hangul";
 
+import { BUILD_DIR } from "../../../../../svelteConfig/dirConfig";
+
 export const GET: RequestHandler = async ({ params, url }) => {
   const page = parseInt(params["idx"] || "1");
   const LIMIT = config.api.POSTS_PER_PAGE;
@@ -14,11 +16,11 @@ export const GET: RequestHandler = async ({ params, url }) => {
     url.searchParams.get("search") || ""
   ).replace(/\s/g, "");
 
-  if (!existsSync("static/search.json")) {
+  if (!existsSync(BUILD_DIR + "/search.json")) {
     return json([false]);
   }
   const pages = JSON.parse(
-    await readFile("static/search.json", "utf-8")
+    await readFile(BUILD_DIR + "/search.json", "utf-8")
   ).filter(
     (x: [string, [string, string], [string?, string?], string?]) =>
       x[1][1].includes(SEARCH_KEYWORD) ||
