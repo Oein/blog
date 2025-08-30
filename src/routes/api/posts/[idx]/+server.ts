@@ -17,7 +17,7 @@ export const GET: RequestHandler = async ({ params, url }) => {
     url.searchParams.get("search") || ""
   ).replace(/\s/g, "");
 
-  if (!existsSync(BUILD_DIR + "/search.json")) {
+  if (!process.env.VERCEL && !existsSync(BUILD_DIR + "/search.json")) {
     return json([false]);
   }
   const pages = JSON.parse(
