@@ -87,7 +87,7 @@ async function crawlPages() {
 }
 
 export default async function ensure() {
-  if (!existsSync(BUILD_DIR)) await mkdir(BUILD_DIR);
+  if (!existsSync(BUILD_DIR)) await mkdir(BUILD_DIR, { recursive: true });
   await crawlPages();
 
   return {
