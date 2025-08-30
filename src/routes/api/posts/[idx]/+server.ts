@@ -14,11 +14,11 @@ export const GET: RequestHandler = async ({ params, url }) => {
     url.searchParams.get("search") || ""
   ).replace(/\s/g, "");
 
-  if (!existsSync(".svelte-kit/output/client/_app/search.json")) {
+  if (!existsSync("static/search.json")) {
     return json([false]);
   }
   const pages = JSON.parse(
-    await readFile(".svelte-kit/output/client/_app/search.json", "utf-8")
+    await readFile("static/search.json", "utf-8")
   ).filter(
     (x: [string, [string, string], [string?, string?], string?]) =>
       x[1][1].includes(SEARCH_KEYWORD) ||

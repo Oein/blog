@@ -20,7 +20,7 @@ const logger = {
 };
 
 const CONTENTS_DIR = "./contents";
-const BUILD_DIR = ".svelte-kit/output/client/_app";
+const BUILD_DIR = "./static";
 
 const pagesData = {};
 const searchData = [];
