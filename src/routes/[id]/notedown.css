@@ -1,0 +1,342 @@
+.notedown-container {
+  line-height: 1.6;
+  color: var(--color-fg);
+  margin: 0 auto;
+}
+.notedown-title {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.notedown-title-1 {
+  font-size: 2.5em;
+}
+.notedown-title-2 {
+  font-size: 2em;
+}
+.notedown-title-3 {
+  font-size: 1.75em;
+}
+.notedown-title-4 {
+  font-size: 1.5em;
+}
+.notedown-title-5 {
+  font-size: 1.25em;
+}
+.notedown-title-6 {
+  font-size: 1em;
+}
+.notedown-description {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1em;
+}
+.notedown-paragraph {
+  margin-bottom: 1em;
+}
+.notedown-code-block {
+  background: var(--color-bg-layer2);
+  border: 1px solid var(--color-accent-1-hover);
+  border-radius: 6px;
+  padding: 16px;
+  overflow-x: auto;
+  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", monospace;
+  font-size: 0.9em;
+  margin: 1em 0;
+  position: relative;
+}
+
+/* Default styling for code when highlight.js is not available */
+.notedown-code-block code.hljs {
+  display: block;
+  padding: 0;
+  background: transparent;
+}
+
+/* Language marker */
+.notedown-code-block::after {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 4px 8px;
+  font-size: 0.7em;
+  color: var(--color-fg);
+  background: var(--color-accent-2);
+  border-bottom-left-radius: 4px;
+  border-top-right-radius: 5px;
+  font-family: sans-serif;
+  opacity: 0.8;
+}
+
+.notedown-inline-code {
+  background: var(--color-bg-layer2);
+  border: 1px solid var(--color-accent-1-hover);
+  border-radius: 3px;
+  padding: 2px 4px;
+  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", monospace;
+  font-size: 0.9em;
+}
+.notedown-collapse {
+  border: 1px solid var(--color-accent-1-hover);
+  border-radius: 6px;
+  margin: 1em 0;
+}
+.notedown-collapse-1 .notedown-collapse-title {
+  background: var(--color-accent-2);
+  font-size: 1.3em;
+  font-weight: 700;
+  border-left: 4px solid var(--color-accent-1);
+}
+.notedown-collapse-2 .notedown-collapse-title {
+  background: var(--color-accent-2);
+  font-size: 1.15em;
+  font-weight: 650;
+  border-left: 4px solid var(--color-accent-1);
+}
+.notedown-collapse-3 .notedown-collapse-title {
+  background: var(--color-accent-2);
+  font-size: 1.05em;
+  font-weight: 600;
+  border-left: 4px solid var(--color-accent-1);
+}
+.notedown-collapse-title {
+  background: var(--color-bg-layer1);
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.notedown-collapse-content {
+  padding: 16px;
+}
+.notedown-image-figure {
+  margin: 1em 0;
+  text-align: center;
+}
+.notedown-image-figure figcaption {
+  font-size: 0.9em;
+  color: var(--color-fg);
+  opacity: 0.5;
+}
+.notedown-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+.notedown-link {
+  color: var(--color-accent-1);
+  text-decoration: none;
+}
+.notedown-link:hover {
+  text-decoration: underline;
+}
+.notedown-bold {
+  font-weight: 600;
+}
+.notedown-italic {
+  font-style: italic;
+}
+.notedown-underline {
+  text-decoration: underline;
+}
+.notedown-crossline {
+  text-decoration: line-through;
+}
+.notedown-color {
+  border-radius: 2px;
+}
+.notedown-meta-ref {
+  background: var(--color-accent-2);
+  color: var(--color-fg);
+  padding: 2px 4px;
+  border-radius: 2px;
+  font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", monospace;
+  font-size: 0.9em;
+}
+.notedown-table-wrapper {
+  width: 100%;
+  padding: 3px 2px;
+  margin: 1px 0;
+  overflow-x: auto;
+  box-sizing: border-box;
+  outline: 0;
+  scrollbar-width: 15px;
+  scrollbar-color: #d3d1cb rgba(0, 0, 0, 0);
+}
+.notedown-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 16px 0;
+  font-size: 0.95em;
+  border-spacing: 0;
+
+  min-width: max-content;
+  max-width: 100%;
+  overflow: auto;
+}
+.notedown-table th,
+.notedown-table td {
+  border: 1px solid var(--color-accent-1-hover);
+  padding: 8px 12px;
+}
+.notedown-table thead {
+  background-color: var(--color-accent-2);
+}
+.notedown-table th {
+  text-align: left;
+  font-weight: 600;
+}
+.notedown-table tr:nth-child(even) {
+  background-color: var(--color-bg-layer1);
+}
+.notedown-table tr:hover {
+  background-color: var(--color-accent-2-hover);
+}
+
+/**
+https:////unpkg.com/@catppuccin/highlightjs@1.0.1/css/catppuccin-mocha.css
+*/
+
+code.hljs {
+  color: #cdd6f4;
+  background: #1e1e2e;
+}
+code .hljs-keyword {
+  color: #cba6f7;
+}
+code .hljs-built_in {
+  color: #f38ba8;
+}
+code .hljs-type {
+  color: #f9e2af;
+}
+code .hljs-literal {
+  color: #fab387;
+}
+code .hljs-number {
+  color: #fab387;
+}
+code .hljs-operator {
+  color: #89dceb;
+}
+code .hljs-punctuation {
+  color: #bac2de;
+}
+code .hljs-property {
+  color: #94e2d5;
+}
+code .hljs-regexp {
+  color: #f5c2e7;
+}
+code .hljs-string {
+  color: #a6e3a1;
+}
+code .hljs-char.escape_ {
+  color: #a6e3a1;
+}
+code .hljs-subst {
+  color: #a6adc8;
+}
+code .hljs-symbol {
+  color: #f2cdcd;
+}
+code .hljs-variable {
+  color: #cba6f7;
+}
+code .hljs-variable.language_ {
+  color: #cba6f7;
+}
+code .hljs-variable.constant_ {
+  color: #fab387;
+}
+code .hljs-title {
+  color: #89b4fa;
+}
+code .hljs-title.class_ {
+  color: #f9e2af;
+}
+code .hljs-title.function_ {
+  color: #89b4fa;
+}
+code .hljs-params {
+  color: #cdd6f4;
+}
+code .hljs-comment {
+  color: #9399b2;
+}
+code .hljs-doctag {
+  color: #f38ba8;
+}
+code .hljs-meta {
+  color: #fab387;
+}
+code .hljs-section {
+  color: #89b4fa;
+}
+code .hljs-tag {
+  color: #94e2d5;
+}
+code .hljs-name {
+  color: #cba6f7;
+}
+code .hljs-attr {
+  color: #89b4fa;
+}
+code .hljs-attribute {
+  color: #a6e3a1;
+}
+code .hljs-bullet {
+  color: #94e2d5;
+}
+code .hljs-code {
+  color: #a6e3a1;
+}
+code .hljs-emphasis {
+  color: #f38ba8;
+  font-style: italic;
+}
+code .hljs-strong {
+  color: #f38ba8;
+  font-weight: bold;
+}
+code .hljs-formula {
+  color: #94e2d5;
+}
+code .hljs-link {
+  color: #74c7ec;
+  font-style: italic;
+}
+code .hljs-quote {
+  color: #a6e3a1;
+  font-style: italic;
+}
+code .hljs-selector-tag {
+  color: #f9e2af;
+}
+code .hljs-selector-id {
+  color: #89b4fa;
+}
+code .hljs-selector-class {
+  color: #94e2d5;
+}
+code .hljs-selector-attr {
+  color: #cba6f7;
+}
+code .hljs-selector-pseudo {
+  color: #94e2d5;
+}
+code .hljs-template-tag {
+  color: #f2cdcd;
+}
+code .hljs-template-variable {
+  color: #f2cdcd;
+}
+code .hljs-addition {
+  color: #a6e3a1;
+  background: rgba(166, 227, 161, 0.15);
+}
+code .hljs-deletion {
+  color: #f38ba8;
+  background: rgba(243, 139, 168, 0.15);
+}
