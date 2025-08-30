@@ -20,7 +20,7 @@ const logger = {
 };
 
 const CONTENTS_DIR = "./contents";
-const BUILD_DIR = "./.build";
+const BUILD_DIR = "./build";
 
 const pagesData = {};
 const searchData = [];
