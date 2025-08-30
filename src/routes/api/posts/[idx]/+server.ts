@@ -22,7 +22,7 @@ export const GET: RequestHandler = async ({ params, url }) => {
   }
   const pages = JSON.parse(
     process.env.VERCEL
-      ? await read("build/search.json").text()
+      ? await read("/build/search.json").text()
       : await readFile(BUILD_DIR + "/search.json", "utf-8")
   ).filter(
     (x: [string, [string, string], [string?, string?], string?]) =>
