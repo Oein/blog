@@ -108,6 +108,9 @@
     background: var(--color-bg-layer1);
     border-radius: 1rem;
     padding: 1.5rem 1.5rem 1rem 1.5rem;
+
+    box-shadow: var(--box-shadow);
+    border: var(--box-border);
   }
 
   .title {

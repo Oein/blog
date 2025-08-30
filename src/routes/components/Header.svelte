@@ -51,6 +51,8 @@
     max-width: var(--page-width);
     width: 100%;
     z-index: 7;
+
+    box-shadow: var(--box-shadow);
   }
 
   a {

@@ -73,6 +73,9 @@
     padding-right: 0.75rem;
     border-radius: 1rem;
     position: relative;
+
+    box-shadow: var(--box-shadow-light);
+    border: var(--box-border-light);
   }
 
   @media (max-width: 700px) {

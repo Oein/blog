@@ -206,6 +206,9 @@
     font-size: 16px;
     border-radius: 0.5rem;
     transition: box-shadow 0.2s ease;
+
+    box-shadow: var(--box-shadow-light);
+    border: var(--box-border-light);
   }
 
   .schkwd:focus {

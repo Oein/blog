@@ -64,6 +64,17 @@ export function applyTheme(theme: ThemeMode) {
   localStorage.setItem("theme", theme);
 }
 
+function applyDark() {
+  if (!browser) return;
+
+  const root = document.documentElement;
+  const themeValues = themes["dark"];
+
+  Object.entries(themeValues).forEach(([property, value]) => {
+    root.style.setProperty(property.replace("--color", "--color-dark"), value);
+  });
+}
+
 // Function to toggle theme
 export function toggleTheme() {
   currentTheme.update((current) => {
@@ -82,6 +93,8 @@ export function setTheme(theme: ThemeMode) {
 // Initialize theme system
 export function initializeTheme() {
   if (!browser) return;
+
+  applyDark();
 
   const theme = getInitialTheme();
   currentTheme.set(theme);

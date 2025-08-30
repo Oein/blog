@@ -196,7 +196,7 @@
 
   main {
     flex-grow: 1;
-    overflow: hidden;
+    overflow: visible;
   }
 
   @media (max-width: 700px) {

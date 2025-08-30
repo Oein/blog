@@ -83,7 +83,7 @@
     top: calc(4.5rem + 3rem);
     min-width: fit-content;
 
-    overflow: auto;
+    overflow: visible;
     max-height: calc(100vh - 4rem - 2rem);
   }
 
@@ -101,6 +101,12 @@
     width: 100%;
     border-radius: calc(1rem - 0.75rem / 2);
     background: var(--color-bg-layer2);
+  }
+
+  .profile,
+  .projects {
+    box-shadow: var(--box-shadow);
+    border: var(--box-border);
   }
 
   .name {
