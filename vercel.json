@@ -6,5 +6,8 @@
     "api/**": {
       "includeFiles": "static/build/**"
     }
+  },
+  "env": {
+    "VERCEL": "true"
   }
 }

@@ -2,6 +2,7 @@ import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "@sveltejs/kit";
 
 import { readFile } from "fs/promises";
+import { read } from "$app/server";
 import { config } from "../../../config";
 import { existsSync } from "fs";
 import { disassemble } from "es-hangul";
@@ -20,7 +21,9 @@ export const GET: RequestHandler = async ({ params, url }) => {
     return json([false]);
   }
   const pages = JSON.parse(
-    await readFile(BUILD_DIR + "/search.json", "utf-8")
+    process.env.VERCEL
+      ? await read(BUILD_DIR).text()
+      : await readFile(BUILD_DIR + "/search.json", "utf-8")
   ).filter(
     (x: [string, [string, string], [string?, string?], string?]) =>
       x[1][1].includes(SEARCH_KEYWORD) ||
