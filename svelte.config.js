@@ -7,12 +7,15 @@ import { readFile } from "fs/promises";
 import ensure from "./svelteConfig/ensureBuildData.js";
 import { BUILD_DIR } from "./svelteConfig/dirConfig.js";
 
-let ensureRes = await (process.env.VERCEL === "true"
-  ? async () => {
-      const data = await readFile(`${BUILD_DIR}/ensure.json`, "utf-8");
-      return JSON.parse(data);
-    }
-  : ensure)();
+let ensureRes =
+  process.env.PREPARE === "true"
+    ? { paths: [] }
+    : await (process.env.VERCEL === "true"
+        ? async () => {
+            const data = await readFile(`${BUILD_DIR}/ensure.json`, "utf-8");
+            return JSON.parse(data);
+          }
+        : ensure)();
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {

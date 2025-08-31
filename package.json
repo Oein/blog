@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "GT=\"$(date)\" vite dev",
+    "dev": "GT=\"$(date)\" HOTRELOAD_CONTENT=true vite dev",
     "build": "GT=\"$(date)\" vite build",
     "preview": "GT=\"$(date)\" vite preview",
-    "prepare": "GT=\"$(date)\" svelte-kit sync || echo ''",
+    "prepare": "GT=\"$(date)\" PREPARE=true svelte-kit sync || echo ''",
     "check": "GT=\"$(date)\" svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "GT=\"$(date)\" svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
@@ -31,6 +31,7 @@
     "es-hangul": "^2.3.5",
     "lz4js": "^0.2.0",
     "mathjax": "3",
-    "notedown-parser": "1.0.18"
+    "notedown-parser": "1.0.18",
+    "vite-plugin-restart": "^1.0.0"
   }
 }

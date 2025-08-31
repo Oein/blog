@@ -125,7 +125,8 @@ export default async function ensure() {
   if (!existsSync(BUILD_DIR)) await mkdir(BUILD_DIR, { recursive: true });
   if (
     existsSync(join(BUILD_DIR, "gt.txt")) &&
-    (await readFile(join(BUILD_DIR, "gt.txt"), "utf-8")) === process.env.GT
+    (await readFile(join(BUILD_DIR, "gt.txt"), "utf-8")) === process.env.GT &&
+    process.env.HOTRELOAD_CONTENT !== "true"
   ) {
     const eData = await readFile(join(BUILD_DIR, "ensure.json"), "utf-8");
     return JSON.parse(eData);
