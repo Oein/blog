@@ -11,7 +11,7 @@
         "es-hangul": "^2.3.5",
         "lz4js": "^0.2.0",
         "mathjax": "3",
-        "notedown-parser": "1.0.5",
+        "notedown-parser": "1.0.18",
       },
       "devDependencies": {
         "@sveltejs/adapter-auto": "^6.0.0",
@@ -294,7 +294,7 @@
 
     "nopt": ["nopt@8.1.0", "", { "dependencies": { "abbrev": "^3.0.0" }, "bin": { "nopt": "bin/nopt.js" } }, "sha512-ieGu42u/Qsa4TFktmaKEwM6MQH0pOWnaB3htzh0JRtx84+Mebc0cbZYN5bC+6WTZ4+77xrL9Pn5m7CV6VIkV7A=="],
 
-    "notedown-parser": ["notedown-parser@1.0.5", "", { "dependencies": { "highlight.js": "^11.11.1" }, "peerDependencies": { "typescript": "^5.9.2" } }, "sha512-eAwXYULB2qJ1yFDot5Dtlv2v6vpLr7mVwv9X8GpZV4hhHpL7QGDes1Fm+0tYkT0dnY1O8jAE9zzEiMgOUgwvYQ=="],
+    "notedown-parser": ["notedown-parser@1.0.18", "", { "dependencies": { "highlight.js": "^11.11.1" }, "peerDependencies": { "typescript": "^5.9.2" } }, "sha512-gO7JcTuI2RyizMjLzDhsKFDnmS6tiOth3nRxml8sbVpMnaaCWpe/z0UrloY/9T3aMPSdkzgGYdlwa2r6eAZZ8A=="],
 
     "package-json-from-dist": ["package-json-from-dist@1.0.1", "", {}, "sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw=="],
 

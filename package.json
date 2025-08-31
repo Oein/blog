@@ -31,6 +31,6 @@
     "es-hangul": "^2.3.5",
     "lz4js": "^0.2.0",
     "mathjax": "3",
-    "notedown-parser": "1.0.5"
+    "notedown-parser": "1.0.18"
   }
 }
