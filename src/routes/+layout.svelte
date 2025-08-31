@@ -89,7 +89,12 @@
 <Theme />
 <Header />
 <div class="banner" bind:clientHeight={imageHeight}>
-  <img src={config.bannerImageURL} alt="wide view" class="cover_image" />
+  <img
+    src={config.bannerImageURL}
+    alt="wide view"
+    class="cover_image"
+    style={`--apd: ${Math.min(Math.max(scrollY / 2, 0), imageHeight)}px`}
+  />
   <div
     class={`text`}
     style={`--innerHeight: ${imageHeight}; --scrollY: ${scrollY};`}
@@ -154,6 +159,7 @@
     max-height: 40vh;
     object-fit: cover;
     object-position: center;
+    transform: translateY(var(--apd));
   }
 
   .view {
@@ -185,12 +191,14 @@
   }
 
   @media (max-width: 75rem) {
-    .cover_image,
     .banner > .text {
       transform: translateY(calc(4.5rem - 1rem));
     }
     .view {
       padding-top: calc(4.5rem - 1rem);
+    }
+    .cover_image {
+      transform: translateY(calc(4.5rem - 1rem + var(--apd)));
     }
   }
 
